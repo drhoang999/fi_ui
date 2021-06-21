@@ -1,4 +1,5 @@
 import 'package:fi_ui/const/color.dart';
+import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:fi_ui/screen/list_of_nodes/list_of_nodes.dart';
 import 'package:flutter/material.dart';
 
@@ -181,7 +182,7 @@ class ImportFromQr extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ListOfNodesScreen()));
+                                  builder: (context) => CheckConnectScreen()));
                         },
                         child: Container(
                           width: 59,
