@@ -1,6 +1,8 @@
+import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'home/home.dart';
 import 'on_boarding/on_boarding.dart';
 import 'send/send.dart';
 
@@ -23,6 +25,22 @@ class FiNavigator extends StatelessWidget {
               }
           ),
           RaisedButton(
+              child: Text("Home"),
+              onPressed: () {
+                Get.to(
+                    HomeScreen()
+                );
+              }
+          ),
+          RaisedButton(
+              child: Text("Connect"),
+              onPressed: () {
+                Get.to(
+                    ConnectScreen()
+                );
+              }
+          ),
+          RaisedButton(
               child: Text("SendScreen"),
               onPressed: () {
                 Get.to(
@@ -30,6 +48,7 @@ class FiNavigator extends StatelessWidget {
                 );
               }
           ),
+
         ],
       ),
     );

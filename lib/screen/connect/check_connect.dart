@@ -32,12 +32,12 @@ class NodeFlag {
   NodeFlag({this.image, this.name, this.ms});
 }
 
-class CheckConnectScreen extends StatefulWidget {
+class ConnectScreen extends StatefulWidget {
   @override
-  _CheckConnectScreenState createState() => _CheckConnectScreenState();
+  _ConnectScreenState createState() => _ConnectScreenState();
 }
 
-class _CheckConnectScreenState extends State<CheckConnectScreen> {
+class _ConnectScreenState extends State<ConnectScreen> {
   STATUS_CONNECT statusConnect = STATUS_CONNECT.NONE;
 
   @override

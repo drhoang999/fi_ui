@@ -142,10 +142,7 @@ class ListOfNodesScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ListOfNodesScreen()));
+
                   },
                   child: Container(
                     width: 59,

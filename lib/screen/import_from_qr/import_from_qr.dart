@@ -3,6 +3,7 @@ import 'package:fi_ui/const/color.dart';
 import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:fi_ui/screen/list_of_nodes/list_of_nodes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ImportFromQr extends StatelessWidget {
   @override
@@ -181,10 +182,7 @@ class ImportFromQr extends StatelessWidget {
 
                       ButtonBottomBack(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CheckConnectScreen()));
+                          Get.to(ListOfNodesScreen());
                         },
                       ),
 
