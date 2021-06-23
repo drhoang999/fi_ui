@@ -1,6 +1,8 @@
+import 'package:fi_ui/components/button/button_bottom_back.dart';
 import 'package:fi_ui/const/color.dart';
 import 'package:fi_ui/screen/wallet_set_up/wallet_set_up.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
@@ -73,31 +75,10 @@ class OnBoarding extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: 59,
-                      height: 59,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 59,
-                            height: 59,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: Color(0xff3dd598),
-                                width: 1,
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.west_rounded,
-                              color: Color(0xff3DD598),
-                            ),
-                          ),
-                        ],
-                      ),
+                    ButtonBottomBack(
+                      onTap: () {
+                        Get.back();
+                      },
                     ),
                     Container(
                       width: 237,

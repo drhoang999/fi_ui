@@ -1,3 +1,4 @@
+import 'package:fi_ui/components/button/button_bottom_back.dart';
 import 'package:fi_ui/const/color.dart';
 import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:fi_ui/screen/list_of_nodes/list_of_nodes.dart';
@@ -177,40 +178,17 @@ class ImportFromQr extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      InkWell(
+
+                      ButtonBottomBack(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => CheckConnectScreen()));
                         },
-                        child: Container(
-                          width: 59,
-                          height: 59,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 59,
-                                height: 59,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(
-                                    color: Color(0xff3dd598),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.keyboard_backspace_rounded,
-                                  color: Color(0xff3dd598),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
+
+
                     ],
                   )
                 ],
