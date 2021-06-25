@@ -2,6 +2,7 @@ import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'explorer/explorer.dart';
 import 'home/home.dart';
 import 'on_boarding/on_boarding.dart';
 import 'send/send.dart';
@@ -49,6 +50,14 @@ class FiNavigator extends StatelessWidget {
               }
           ),
 
+          RaisedButton(
+              child: Text("Explorer"),
+              onPressed: () {
+                Get.to(
+                    ExplorerScreen()
+                );
+              }
+          ),
         ],
       ),
     );
