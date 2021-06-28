@@ -6,6 +6,7 @@ import 'explorer/explorer.dart';
 import 'home/home.dart';
 import 'on_boarding/on_boarding.dart';
 import 'send/send.dart';
+import 'wallet/wallet.dart';
 
 class FiNavigator extends StatelessWidget {
   @override
@@ -55,6 +56,15 @@ class FiNavigator extends StatelessWidget {
               onPressed: () {
                 Get.to(
                     ExplorerScreen()
+                );
+              }
+          ),
+
+          RaisedButton(
+              child: Text("Wallet"),
+              onPressed: () {
+                Get.to(
+                    WalletScreen()
                 );
               }
           ),
