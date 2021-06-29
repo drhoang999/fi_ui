@@ -1,4 +1,5 @@
 import 'package:fi_ui/screen/connect/check_connect.dart';
+import 'package:fi_ui/screen/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -65,6 +66,15 @@ class FiNavigator extends StatelessWidget {
               onPressed: () {
                 Get.to(
                     WalletScreen()
+                );
+              }
+          ),
+
+          RaisedButton(
+              child: Text("Settings"),
+              onPressed: () {
+                Get.to(
+                    SettingsScreenScreen()
                 );
               }
           ),
