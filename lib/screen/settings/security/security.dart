@@ -80,48 +80,5 @@ class SecurityScreen extends StatelessWidget {
     );
   }
 
-  Widget buildListItem(
-      {String text,
-      Icon icon,
-      Function onTap,
-      Color colorIcon,
-      String textTrailing}) {
-    return InkWell(
-      onTap: () {
-        onTap();
-      },
-      child: Container(
-        padding: EdgeInsets.all(15),
-        child: Row(
-          children: [
-            Row(
-              children: [
-                CircleAvatar(backgroundColor: colorIcon, child: icon),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  text ?? "",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 7),
-              child: Text(
-                textTrailing ?? "",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Icon(
-              Icons.arrow_forward_ios_outlined,
-              size: 12,
-              color: Color(0xff3DD598),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+
 }

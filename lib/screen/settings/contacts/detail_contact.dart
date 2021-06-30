@@ -1,14 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fi_ui/components/button/button_bottom_back.dart';
-import 'package:fi_ui/components/button/button_confirm.dart';
 import 'package:fi_ui/components/text_field/text_field_with_icon.dart';
-import 'package:fi_ui/screen/send/confirm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../connection/connection.dart';
-import '../security/security.dart';
 
 class ContactDetailScreen extends StatelessWidget {
   @override

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'explorer/explorer.dart';
 import 'home/home.dart';
+import 'nodes/manage_nodes.dart';
 import 'on_boarding/on_boarding.dart';
 import 'send/send.dart';
 import 'wallet/wallet.dart';
@@ -75,6 +76,15 @@ class FiNavigator extends StatelessWidget {
               onPressed: () {
                 Get.to(
                     SettingsScreenScreen()
+                );
+              }
+          ),
+
+          RaisedButton(
+              child: Text("ManageNodes"),
+              onPressed: () {
+                Get.to(
+                    ManageNodesScreen()
                 );
               }
           ),
