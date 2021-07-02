@@ -13,6 +13,7 @@ class OHLCVGraph extends StatelessWidget {
     this.gridLineWidth = 0.5,
     this.gridLineLabelColor = Colors.grey,
     this.labelPrefix = "\$",
+    this.showText = false,
     @required this.enableGridLines,
     @required this.volumeProp,
     this.increaseColor = Colors.green,
@@ -20,42 +21,31 @@ class OHLCVGraph extends StatelessWidget {
   })  : assert(data != null),
         super(key: key);
 
-  /// OHLCV data to graph  /// List of Maps containing open, high, low, close and volumeto
-  /// Example: [["open" : 40.0, "high" : 75.0, "low" : 25.0, "close" : 50.0, "volumeto" : 5000.0}, {...}]
   final List data;
 
-  /// All lines in chart are drawn with this width
   final double lineWidth;
 
-  /// Enable or disable grid lines
   final bool enableGridLines;
 
-  /// Color of grid lines and label text
   final Color gridLineColor;
   final Color gridLineLabelColor;
 
-  /// Number of grid lines
   final int gridLineAmount;
 
-  /// Width of grid lines
   final double gridLineWidth;
 
-  /// Proportion of paint to be given to volume bar graph
   final double volumeProp;
 
-  /// If graph is given unbounded space,
-  /// it will default to given fallback height and width
   final double fallbackHeight;
   final double fallbackWidth;
 
-  /// Symbol prefix for grid line labels
   final String labelPrefix;
 
-  /// Increase color
   final Color increaseColor;
 
-  /// Decrease color
   final Color decreaseColor;
+
+  final bool showText;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +61,7 @@ class OHLCVGraph extends StatelessWidget {
             gridLineWidth: gridLineWidth,
             gridLineLabelColor: gridLineLabelColor,
             enableGridLines: enableGridLines,
+            showText: showText,
             volumeProp: volumeProp,
             labelPrefix: labelPrefix,
             increaseColor: increaseColor,
@@ -82,7 +73,8 @@ class OHLCVGraph extends StatelessWidget {
 
 class _OHLCVPainter extends CustomPainter {
   _OHLCVPainter(this.data,
-      {@required this.lineWidth,
+      {this.showText,
+      @required this.lineWidth,
       @required this.enableGridLines,
       @required this.gridLineColor,
       @required this.gridLineAmount,
@@ -104,6 +96,7 @@ class _OHLCVPainter extends CustomPainter {
   final double volumeProp;
   final Color increaseColor;
   final Color decreaseColor;
+  final bool showText;
 
   double _min;
   double _max;
@@ -188,9 +181,12 @@ class _OHLCVPainter extends CustomPainter {
 
     if (enableGridLines) {
       InlineSpan inlineSpan = gridLineTextPainters[0].text;
-      width = size.width - inlineSpan.toPlainText().length * 6;
+      if (showText == true) {
+        width = size.width - inlineSpan.toPlainText().length * 6;
+      }
+
       Paint gridPaint = new Paint()
-        ..color = gridLineColor
+        ..color = gridLineColor.withOpacity(0.4)
         ..strokeWidth = gridLineWidth;
 
       double gridLineDist = height / (gridLineAmount - 1);
@@ -202,13 +198,30 @@ class _OHLCVPainter extends CustomPainter {
         canvas.drawLine(new Offset(0.0, gridLineY),
             new Offset(width, gridLineY), gridPaint);
 
-        // Label grid lines
-        gridLineTextPainters[i]
-            .paint(canvas, new Offset(width + 2.0, gridLineY - 6.0));
+        if (showText == true) {
+          // Label grid lines
+          gridLineTextPainters[i]
+              .paint(canvas, new Offset(width + 2.0, gridLineY - 6.0));
+        }
       }
 
-      // Label volume line
-      maxVolumePainter.paint(canvas, new Offset(0.0, gridLineY + 2.0));
+      double gridLineVertical = gridLineDist;
+      double gridLineX;
+      // Draw grid lines
+      for (int i = 0; i < gridLineVertical; i++) {
+        gridLineX = (gridLineVertical * i).round().toDouble();
+        canvas.drawLine(new Offset(i * gridLineVertical, 0),
+            new Offset(i * gridLineVertical, height), gridPaint);
+
+        // Label grid lines
+        // gridLineTextPainters[i]
+        //     .paint(canvas, new Offset(width + 2.0, gridLineY - 6.0));
+      }
+
+      if (showText == true) {
+        // Label volume line
+        maxVolumePainter.paint(canvas, new Offset(0.0, gridLineY + 2.0));
+      }
     }
 
     final double heightNormalizer = height / (_max - _min);
@@ -230,7 +243,6 @@ class _OHLCVPainter extends CustomPainter {
           (data[i]["volumeto"] * volumeNormalizer - lineWidth / 2);
       double volumeBarBottom = height + volumeHeight + lineWidth / 2;
 
-
       //red
       if (data[i]["open"] > data[i]["close"]) {
         // Draw candlestick if decrease
@@ -248,18 +260,27 @@ class _OHLCVPainter extends CustomPainter {
 
         canvas.drawLine(
             new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectBottom),
-            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectTop), rectPaint);
+            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectTop),
+            rectPaint);
 
-        // Draw volume bars
+        // Draw volume bars  bottom red
+//------------------------------------------------------------------------------
+        var rectPaintBot = new Paint();
+        rectPaintBot.strokeCap = StrokeCap.square;
+        rectPaintBot.strokeWidth = 17;
+        rectPaintBot.color = Color(0xff21204A);
 
-        rectPaint.strokeCap = StrokeCap.round;
-        rectPaint.style = PaintingStyle.stroke;
-        rectPaint.strokeWidth = 3;
+        canvas.drawLine(
+            new Offset(
+                rectLeft + rectWidth / 2 - lineWidth / 2, volumeBarBottom),
+            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, volumeBarTop),
+            rectPaintBot);
 
-        Rect volumeRect = new Rect.fromLTRB(
-            rectLeft, volumeBarTop, rectRight, volumeBarBottom);
-        canvas.drawRect(volumeRect, rectPaint);
-      } else {  //green
+        // Rect volumeRect = new Rect.fromLTRB(
+        //     rectLeft, volumeBarTop, rectRight, volumeBarBottom);
+        // canvas.drawRect(volumeRect, rectPaint);
+      } else {
+        //green
         // Draw candlestick if increase
         rectTop = (height - (data[i]["close"] - _min) * heightNormalizer) +
             lineWidth / 2;
@@ -269,7 +290,7 @@ class _OHLCVPainter extends CustomPainter {
           ..color = increaseColor
           ..strokeWidth = lineWidth;
 
-
+//------------------------------------------------------------------------------
         rectPaint.strokeCap = StrokeCap.round;
         rectPaint.style = PaintingStyle.stroke;
         rectPaint.strokeWidth = 17;
@@ -283,14 +304,14 @@ class _OHLCVPainter extends CustomPainter {
 
         canvas.drawLine(
             new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectBottom),
-            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectTop), rectPaint);
+            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, rectTop),
+            rectPaint);
 
+//------------------------------------------------------------------------------
         // Draw volume bars   bottom
-
         rectPaint.strokeCap = StrokeCap.round;
         rectPaint.style = PaintingStyle.stroke;
         rectPaint.strokeWidth = 3;
-
 
         // canvas.drawLine(new Offset(rectLeft, volumeBarBottom - lineWidth / 2),
         //     new Offset(rectRight, volumeBarBottom - lineWidth / 2), rectPaint);
@@ -302,16 +323,29 @@ class _OHLCVPainter extends CustomPainter {
         //     new Offset(rectRight - lineWidth / 2, volumeBarBottom),
         //     new Offset(rectRight - lineWidth / 2, volumeBarTop), rectPaint);
 
-         canvas.drawLine(
-             new Offset(rectLeft + lineWidth , volumeBarBottom),
-             new Offset(rectLeft + lineWidth , volumeBarTop), rectPaint);
-      }
+//------------------------------------------------------------------------------
+        // bottom green
 
+        var rectPaintBot = new Paint();
+        rectPaintBot.strokeCap = StrokeCap.square;
+        rectPaintBot.strokeWidth = 17;
+        rectPaintBot.color = Color(0xff21204A);
+
+        canvas.drawLine(
+            new Offset(
+                rectLeft + rectWidth / 2 - lineWidth / 2, volumeBarBottom),
+            new Offset(rectLeft + rectWidth / 2 - lineWidth / 2, volumeBarTop),
+            rectPaintBot);
+
+        // canvas.drawLine(
+        //     new Offset(rectLeft + lineWidth+ lineWidth , volumeBarBottom),
+        //     new Offset(rectLeft + lineWidth+ lineWidth , volumeBarTop), rectPaint);
+      }
+//------------------------------------------------------------------------------
       // Draw low/high candlestick wicks
       rectPaint.strokeCap = StrokeCap.round;
       rectPaint.style = PaintingStyle.stroke;
       rectPaint.strokeWidth = 4;
-
       double low = height - (data[i]["low"] - _min) * heightNormalizer;
       double high = height - (data[i]["high"] - _min) * heightNormalizer;
       canvas.drawLine(
