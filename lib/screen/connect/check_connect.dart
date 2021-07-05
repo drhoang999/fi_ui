@@ -376,7 +376,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
               ),
             ),
             Text(
-              "transaction",
+              "transaction.dart",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

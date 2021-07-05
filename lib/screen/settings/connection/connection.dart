@@ -64,7 +64,7 @@ class ConnectionSettingScreen extends StatelessWidget {
                   ),
                   buildSwitchItem(text: "Receive from node", selected: false),
                   buildSwitchItem(
-                      text: "Receive status of transaction", selected: false),
+                      text: "Receive status of transaction.dart", selected: false),
                 ],
               ),
             )),

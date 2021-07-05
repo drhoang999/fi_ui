@@ -3,11 +3,13 @@ import 'package:fi_ui/screen/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'demo_get/demo_getx.dart';
 import 'explorer/explorer.dart';
 import 'home/home.dart';
 import 'nodes/manage_nodes.dart';
 import 'on_boarding/on_boarding.dart';
 import 'send/send.dart';
+import 'transaction/transaction.dart';
 import 'wallet/wallet.dart';
 
 class FiNavigator extends StatelessWidget {
@@ -88,6 +90,24 @@ class FiNavigator extends StatelessWidget {
                 );
               }
           ),
+          RaisedButton(
+              child: Text("DemoGetx"),
+              onPressed: () {
+                Get.to(
+                    DemoGetx()
+                );
+              }
+          ),
+
+          RaisedButton(
+              child: Text("Transaction"),
+              onPressed: () {
+                Get.to(
+                    TransactionScreenScreen()
+                );
+              }
+          ),
+
         ],
       ),
     );

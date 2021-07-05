@@ -46,7 +46,7 @@ class SuccessScreen extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "It usually takes about 3 seconds for a transaction to be finalized.",
+                    "It usually takes about 3 seconds for a transaction.dart to be finalized.",
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Color(0xffD8D8D8)),
                   )
