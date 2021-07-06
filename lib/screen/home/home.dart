@@ -1,12 +1,12 @@
+import 'package:fi_ui/components/charts/spakline.dart';
 import 'package:fi_ui/components/navigator_bar.dart';
 import 'package:fi_ui/const/color.dart';
-import 'package:fi_ui/screen/home/widget/bar_chart.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
-
+import 'widget/bar_chart.dart';
 import 'widget/circle_chart.dart';
 import 'widget/weekly_process_chart.dart';
 
@@ -275,100 +275,35 @@ class HomeScreen extends StatelessWidget {
                 buildTitle("WALLETS"),
 
                 Container(
-                  height: 80,
+                  height: 90,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Container(
-                          margin: EdgeInsets.all(8),
-                          width: 190,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color(0xff14b9e3), width: 0.3),
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: index % 2 == 0
-                                ? null
-                                : LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xff3fdcff),
-                                      Color(0xff14b9e3),
-                                      Color(0xff13b1e6),
-                                      Color(0xff11a9de),
-                                      Color(0xff0a98c5)
-                                    ],
-                                  ),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "W",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "1.9678",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                        ),
-                                        Text(
-                                          "+12,5%",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 5, bottom: 5),
-                                child: Text(
-                                  "Wallet ABC",
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.6),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ))),
+                      itemBuilder: (context, index) => buildItemWallet(
+                        isUp: index % 2 != 0
+                      )),
                 ),
+                buildTitle("TREND"),
+                Container(
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                      itemBuilder: (context,index) => buildTrendItem(
 
+                        isUp: index % 2 ==0
+                      )
+                  ),
+                ),
                 //WALLETS
                 buildTitle("TREND"),
-                BarChartHome(),
 
-                WeeklyProcessChart(
-                  value: 45,
+                BarChartC(
+                  height: 300,
+                  width: Get.width,
+                ),
+                SizedBox(
+                  child: WeeklyProcessChart(
+                    value: 45,
+                  ),
                 ),
                 SizedBox(
                   height: 50,
@@ -441,88 +376,81 @@ class HomeScreen extends StatelessWidget {
                                 ],
                               ),
                               Expanded(
-                                  child: ListView.builder(
-                                      itemBuilder: (context, index) =>
-                                          Container(
-                                            height: 80,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  index % 2 == 0
-                                                      ? Color(0xff5E5CE6)
-                                                          .withOpacity(0.1)
-                                                      : Colors.transparent,
-                                                  index % 2 == 0
-                                                      ? Color(0xff64D2FF)
-                                                          .withOpacity(0.1)
-                                                      : Colors.transparent,
-                                                ],
-                                                begin: Alignment(0.5, 0.5),
-                                                end: Alignment(0.5, 0.5),
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) => Container(
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          index % 2 == 0
+                                              ? Color(0xff5E5CE6)
+                                                  .withOpacity(0.1)
+                                              : Colors.transparent,
+                                          index % 2 == 0
+                                              ? Color(0xff64D2FF)
+                                                  .withOpacity(0.1)
+                                              : Colors.transparent,
+                                        ],
+                                        begin: Alignment(0.5, 0.5),
+                                        end: Alignment(0.5, 0.5),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/png/avatar.png',
+                                          height: 60,
+                                        ),
+                                        Expanded(
+                                            child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'People can explore some status and ...',
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        132, 142, 196, 1),
+                                                    fontFamily: 'Helvetica',
+                                                    fontSize: 14,
+                                                    letterSpacing:
+                                                        0 /*percentages not used in flutter. defaulting to zero*/,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    height: 1.7142857142857142),
                                               ),
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Image.asset(
-                                                  'assets/images/png/avatar.png',
-                                                  height: 60,
-                                                ),
-                                                Expanded(
-                                                    child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'People can explore some status and ...',
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    132,
-                                                                    142,
-                                                                    196,
-                                                                    1),
-                                                            fontFamily:
-                                                                'Helvetica',
-                                                            fontSize: 14,
-                                                            letterSpacing:
-                                                                0 /*percentages not used in flutter. defaulting to zero*/,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            height:
-                                                                1.7142857142857142),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text("qNode XZY"),
-                                                          Text("qNode XZY"),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ))
-                                              ],
-                                            ),
-                                          )))
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text("qNode XZY"),
+                                                  Text("qNode XZY"),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 80,
+                              )
                             ],
                           ),
                         ),
@@ -534,6 +462,86 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Align(alignment: Alignment.bottomCenter, child: NavigatorBar()),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTrendItem({bool isUp = false}) {
+    return Container(
+      width: 260,
+      padding: EdgeInsets.all(20),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Wallet ABC",
+                style: TextStyle(color: Colors.grey.withOpacity(0.5)),
+              ),
+              Spacer(),
+              isUp ?
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/svg/up_percent.svg',
+                    width: 10,
+                    height: 10,
+                      color: Color(0xff50E3C2)
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "+75.69%",
+                    style: TextStyle(color: Color(0xff50E3C2)),
+                  ),
+                ],
+              ):
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/svg/down_percent.svg',
+                    width: 10,
+                    height: 10,
+                      color: Colors.red
+                  ),
+                  Text(
+                    "+75.69%",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ],
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            "104,23",
+            style: TextStyle(color: Colors.grey[300],fontSize: 20),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 250.0,
+            height: 20.0,
+            child: new Sparkline(
+              useCubicSmoothing: true,
+              cubicSmoothingFactor: 0.2,
+              lineWidth: 3,
+              lineGradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xff80FF57).withOpacity(0.2), Color(0xffEAFF00)],
+              ),
+              data: [0.1, 0.0, 0.1, 0.0, 0.1, 0.0, 0.2],
+            ),
+          ),
         ],
       ),
     );
@@ -718,5 +726,150 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget buildItemWallet({bool isUp = true}) {
+    return Container(
+        margin: EdgeInsets.all(8),
+        width: 210,
+        height: 95,
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: Color(0xff14b9e3), width: 0.3),
+          borderRadius: BorderRadius.circular(10),
+          gradient: !isUp
+              ? null
+              : LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xff3fdcff),
+              Color(0xff14b9e3),
+              Color(0xff13b1e6),
+              Color(0xff11a9de),
+              Color(0xff0a98c5)
+            ],
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "W",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "1.9678",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Row(
+                        children: [
+                          isUp ? Container(
+                            width: 50.0,
+                            height: 15.0,
+                            child: new Sparkline(
+                              useCubicSmoothing: true,
+                              cubicSmoothingFactor: 0.2,
+                              lineWidth: 3,
+                              lineGradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [
+                                  Colors.white,
+                                  Colors.white.withOpacity(0.5)],
+                              ),
+                              data: [0.1, 0.0, 0.1, 0.0, 0.1, 0.0, 0.2],
+                            ),
+                          ): Container(
+                            width: 50.0,
+                            height: 15.0,
+                            child: new Sparkline(
+                              useCubicSmoothing: true,
+                              cubicSmoothingFactor: 0.2,
+                              lineWidth: 3,
+                              lineGradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [Color(0xffA330FF).withOpacity(0.2),
+                                  Color(0xffE3507A)],
+                              ),
+                              data: [0.1, 0.0, 0.1, 0.0, 0.1, 0.0, 0.2],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          isUp ?
+                          SvgPicture.asset(
+                              'assets/images/svg/up_percent.svg',
+                              width: 10,
+                              height: 10,
+                              color: Colors.white
+                          ) :
+                          SvgPicture.asset(
+                              'assets/images/svg/down_percent.svg',
+                              width: 10,
+                              height: 10,
+                              color: Colors.red
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "+12,5%",
+                            style: TextStyle(
+                              color:isUp ? Colors.white : Colors.red,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+              const EdgeInsets.only(left: 5, bottom: 5),
+              child: Text(
+                "Wallet ABC",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }

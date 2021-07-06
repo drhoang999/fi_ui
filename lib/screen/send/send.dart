@@ -1,3 +1,6 @@
+import 'package:fi_ui/components/button/button_bottom_back.dart';
+import 'package:fi_ui/components/button/button_confirm.dart';
+import 'package:fi_ui/components/card/wallet_card.dart';
 import 'package:fi_ui/components/text_field/text_field_no_icon.dart';
 import 'package:fi_ui/screen/qr_code/qr_code.dart';
 import 'package:flutter/material.dart';
@@ -35,32 +38,37 @@ class SendScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Source',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: Color.fromRGBO(255, 255, 255, 1),
-                              fontFamily: 'Inter',
-                              fontSize: 15,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.normal,
-                              height: 1),
-                        ),
-                        Text(
-                          'n/a',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              color: Color.fromRGBO(187, 187, 187, 1),
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              letterSpacing: 0,
-                              fontWeight: FontWeight.normal,
-                              height: 1),
-                        )
-                      ],
+                    InkWell(
+                      onTap: (){
+                        showModalBottomCards();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Source',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                                fontFamily: 'Inter',
+                                fontSize: 15,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.normal,
+                                height: 1),
+                          ),
+                          Text(
+                            'n/a',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                color: Color.fromRGBO(187, 187, 187, 1),
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                letterSpacing: 0,
+                                fontWeight: FontWeight.normal,
+                                height: 1),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 70,
@@ -152,5 +160,59 @@ class SendScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void showModalBottomCards() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: Get.context,
+        backgroundColor: Color(0xff10194E),
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Expanded(child: Container()),
+                    Expanded(
+                      child: Container(
+                          margin: EdgeInsets.only(top: 5, bottom: 10),
+                          width: 64,
+                          height: 7,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                            color: Color.fromRGBO(78, 88, 159, 1),
+                          )),
+                    ),
+                    Expanded(child: Container(
+                      alignment: Alignment.topRight,
+                      child: Text("Cancel", style: TextStyle(
+                        color: Color(0xff0078F8)
+                      ),),
+                    )),
+                  ],
+                ),
+
+                Container(
+                  height: 200,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => WalletCard()),
+                ),
+
+                SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
+          );
+        });
   }
 }

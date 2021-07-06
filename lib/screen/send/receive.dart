@@ -1,4 +1,5 @@
 import 'package:fi_ui/components/button/button_bottom_back.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fi_ui/const/color.dart';
@@ -73,12 +74,22 @@ class ReceiveScreen extends StatelessWidget {
                                  alignment: Alignment.bottomCenter,
                                  children: [
                                    Container(
+                                     height: Get.height * 0.25,
+                                     width: Get.width,
+                                     padding: const EdgeInsets.only(right: 16.0, left: 6.0),
+                                     child: LineChart(
+                                       sampleData1(),
+                                       swapAnimationDuration:
+                                       const Duration(milliseconds: 250),
+                                     ),
+                                   ),
+                                   Container(
                                        padding: EdgeInsets.all(20),
                                        width: MediaQuery.of(context).size.width,
                                        margin:
                                        EdgeInsets.symmetric(horizontal: 5.0),
                                        decoration: BoxDecoration(
-                                           color: Colors.white.withOpacity(0.8),
+                                           color: Colors.white.withOpacity(0.5),
                                            gradient: LinearGradient(
                                              begin: Alignment.topCenter,
                                              end: Alignment.bottomCenter,
@@ -261,6 +272,147 @@ class ReceiveScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  LineChartData sampleData1() {
+    return LineChartData(
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+        ),
+        touchCallback: (LineTouchResponse touchResponse) {},
+        handleBuiltInTouches: true,
+      ),
+      gridData: FlGridData(
+        show: false,
+      ),
+      titlesData: FlTitlesData(
+        leftTitles: SideTitles(margin: 0),
+        bottomTitles: SideTitles(
+          showTitles: true,
+          //  reservedSize: 22,
+          getTextStyles: (value) => const TextStyle(
+            color: Color(0xff72719b),
+            fontSize: 12,
+          ),
+          // margin: 10,
+          getTitles: (value) {
+            switch (value.toInt()) {
+              case 1:
+                return 'Tue';
+              case 2:
+                return 'Wed';
+              case 3:
+                return 'Thu';
+              case 4:
+                return 'Fri';
+              case 5:
+                return 'Sat';
+              case 6:
+                return '';
+            }
+            return '';
+          },
+        ),
+      ),
+      borderData: FlBorderData(
+        show: false,
+        border: const Border(
+          bottom: BorderSide(
+            color: Color(0xff4e4965),
+            width: 4,
+          ),
+          left: BorderSide(
+            color: Colors.transparent,
+          ),
+          right: BorderSide(
+            color: Colors.transparent,
+          ),
+          top: BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+      ),
+      minX: 0,
+      minY: 0,
+      maxX: 6,
+      maxY: 4,
+      lineBarsData: linesBarData1(),
+    );
+  }
+
+  List<LineChartBarData> linesBarData1() {
+    final lineChartBarData1 = LineChartBarData(
+      spots: [
+        FlSpot(1, 1),
+        FlSpot(3, 1.5),
+        FlSpot(4, 1.4),
+        FlSpot(5, 3.4),
+        FlSpot(6, 2),
+      ],
+      isCurved: true,
+      colors: [
+        const Color(0xffCB3DC4).withOpacity(0.4),
+      ],
+      barWidth: 4,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: false,
+      ),
+    );
+    final lineChartBarData2 = LineChartBarData(
+      spots: [
+        FlSpot(1, 1),
+        FlSpot(2, 2.8),
+        FlSpot(3, 1.2),
+        FlSpot(4, 2.8),
+        FlSpot(5, 2.6),
+        FlSpot(6, 3.9),
+      ],
+      isCurved: true,
+      colors: [
+        const Color(0xff50E3C2).withOpacity(0.4),
+      ],
+      barWidth: 4,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(show: false, colors: [
+        const Color(0x00aa4cfc),
+      ]),
+    );
+    final lineChartBarData3 = LineChartBarData(
+      spots: [
+        FlSpot(1, 2.8),
+        FlSpot(2, 1.9),
+        FlSpot(3, 3),
+        FlSpot(4, 1.3),
+        FlSpot(5, 2.5),
+        FlSpot(6, 2),
+      ],
+      isCurved: true,
+      colors: [
+        Color(0xff27b6fc).withOpacity(0.4),
+      ],
+      barWidth: 4,
+      isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: false,
+      ),
+    );
+    return [
+      lineChartBarData1,
+      lineChartBarData2,
+      lineChartBarData3,
+    ];
   }
 
   Widget buildItemOption({IconData icon, String text}) {

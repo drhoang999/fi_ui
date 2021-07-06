@@ -11,6 +11,7 @@ class PickLocationWidget extends StatelessWidget {
       child: CarouselSlider(
         items: LIST_NODE
             .map((e) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               e.image,
@@ -19,6 +20,7 @@ class PickLocationWidget extends StatelessWidget {
             ),
             Text(
               e.name,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 25, color: Colors.white),
             ),
@@ -27,6 +29,7 @@ class PickLocationWidget extends StatelessWidget {
             ),
             Text(
               e.ms,
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey[400]),
             ),
           ],
@@ -34,10 +37,10 @@ class PickLocationWidget extends StatelessWidget {
             .toList(),
         options: CarouselOptions(
             initialPage: 1,
-            viewportFraction: 0.5,
+            viewportFraction: 0.38,
             autoPlayCurve: Curves.easeOutSine,
             enlargeCenterPage: false,
-            height: 170.0),
+            height: 200.0),
       ),
     );
   }

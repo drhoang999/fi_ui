@@ -1,4 +1,5 @@
 import 'package:fi_ui/components/button/button_bottom_back.dart';
+import 'package:fi_ui/components/text/gradient_text.dart';
 import 'package:fi_ui/const/color.dart';
 import 'package:fi_ui/screen/connect/check_connect.dart';
 import 'package:fi_ui/screen/list_of_nodes/list_of_nodes.dart';
@@ -11,40 +12,44 @@ class ImportFromQr extends StatelessWidget {
     return Scaffold(
         backgroundColor: IbePrimaryColor,
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: SizedBox(
                 height: 50,
               ),
             ),
-            Text(
-              "IMPORT USING SEED PHRASE",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: "Antonio",
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 1,
-                  foreground: Paint()
-                    ..shader = LinearGradient(
-                      colors: <Color>[Color(0xff64D2FF), Color(0xff5E5CE6)],
-                    ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0))),
+            SizedBox(
+              height: 10,
             ),
+            Center(
+              child: GradientText(
+                  "IMPORT USING SEED PHRASE",
+                gradient: LinearGradient(
+                  colors: <Color>[Color(0xff64D2FF), Color(0xff5E5CE6)],
+                ),
+                fontSize: 20,
+              ),
+            ),
+
             Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(left: 12,bottom: 8),
+              child: Text(
+                "How do you want to import \nyour wallet?",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 21,
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Text(
-                    "How do you want to import \nyour wallet?",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 21,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+
                   TextFormField(
                     cursorColor: Theme.of(context).cursorColor,
                     maxLength: 20,
@@ -53,11 +58,16 @@ class ImportFromQr extends StatelessWidget {
                         Icons.qr_code,
                         color: Colors.white,
                       ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: 'Scan QR code',
                       labelStyle: TextStyle(
                         color: Colors.white,
                       ),
                       helperText: 'From a paper backup.',
+                      hintText: "From a paper backup.",
+                      hintStyle: TextStyle(
+                        color: Colors.grey
+                      ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -77,6 +87,10 @@ class ImportFromQr extends StatelessWidget {
                         color: Colors.white,
                       ),
                       helperText: 'A combination of 12 to 24 words.',
+                      hintText: "A combination of 12 to 24 words.",
+                      hintStyle: TextStyle(
+                          color: Colors.grey
+                      ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -96,6 +110,10 @@ class ImportFromQr extends StatelessWidget {
                         color: Colors.white,
                       ),
                       helperText: 'Most likely named wallet.dat',
+                      hintText: "Most likely named wallet.dat",
+                      hintStyle: TextStyle(
+                          color: Colors.grey
+                      ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -115,6 +133,10 @@ class ImportFromQr extends StatelessWidget {
                         color: Colors.white,
                       ),
                       helperText: 'From an extended public key.',
+                      hintText: "From an extended public key.",
+                      hintStyle: TextStyle(
+                          color: Colors.grey
+                      ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),

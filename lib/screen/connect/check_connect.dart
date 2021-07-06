@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fi_ui/components/text/gradient_text.dart';
 import 'package:fi_ui/const/color.dart';
 import 'package:fi_ui/screen/connect/widget/button_handle_connect_widget.dart';
 import 'package:fi_ui/screen/home/home.dart';
@@ -135,25 +136,64 @@ class _ConnectScreenState extends State<ConnectScreen> {
                 SizedBox(
                   height: MediaQuery.of(context).padding.top,
                 ),
-                Image.asset(
-                  'assets/images/png/surf.png',
-                  height: 35,
+                SizedBox(
+                  height: 20,
                 ),
-                Text(
-                  statusConnect == STATUS_CONNECT.NONE
-                      ? "CHECK CONNECT"
-                      : statusConnect == STATUS_CONNECT.CONNECTING
-                          ? "CONNECTING"
-                          : "CONNECTED",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Antonio",
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1,
-                      color: Colors.white),
-                ),
-           statusConnect != STATUS_CONNECT.CONNECTED ? Container():  buildInfoConnected()
+                statusConnect == STATUS_CONNECT.NONE
+                    ? Column(
+                        children: [
+                          ShaderMask(
+                            child: Image.asset(
+                              'assets/images/png/surf.png',
+                              height: 35,
+                            ),
+                            shaderCallback: (Rect bounds) {
+                              return LinearGradient(colors: [
+                                Color(0xff64D2FF),
+                                Color(0xff5E5CE6),
+                              ]).createShader(bounds);
+                            },
+                            blendMode: BlendMode.srcATop,
+                          ),
+                          GradientText(
+                            statusConnect == STATUS_CONNECT.NONE
+                                ? "CHECK CONNECT"
+                                : statusConnect == STATUS_CONNECT.CONNECTING
+                                    ? "CONNECTING"
+                                    : "CONNECTED",
+                            fontSize: 20,
+                            gradient: LinearGradient(colors: [
+                              Color(0xff64D2FF),
+                              Color(0xff5E5CE6),
+                            ]),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Image.asset(
+                            'assets/images/png/surf.png',
+                            height: 35,
+                          ),
+                          Text(
+                            statusConnect == STATUS_CONNECT.NONE
+                                ? "CHECK CONNECT"
+                                : statusConnect == STATUS_CONNECT.CONNECTING
+                                    ? "CONNECTING"
+                                    : "CONNECTED",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Antonio",
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 1,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                statusConnect != STATUS_CONNECT.CONNECTED
+                    ? Container()
+                    : buildInfoConnected()
               ],
             ),
           ),
@@ -165,11 +205,12 @@ class _ConnectScreenState extends State<ConnectScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  flex: 1,
+                  flex: 4,
                   child: Container(),
                 ),
+                Expanded(flex: 4, child: Container()),
                 Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Center(
                       child: ButtonHandleConnectWidget(
                         statusConnect: statusConnect,
@@ -180,35 +221,37 @@ class _ConnectScreenState extends State<ConnectScreen> {
                       ),
                     )),
                 Expanded(
-                    flex: 3,
+                    flex: 16,
                     child: Container(
                         width: Get.width,
                         decoration: BoxDecoration(
-                          image:   statusConnect == STATUS_CONNECT.NONE ? DecorationImage(
-                            image: new ExactAssetImage(
-                                'assets/images/png/map.png'),
-                            fit: BoxFit.contain,
-                          ) : null,
+                          image: statusConnect == STATUS_CONNECT.NONE
+                              ? DecorationImage(
+                                  image: new ExactAssetImage(
+                                      'assets/images/png/map.png'),
+                                  fit: BoxFit.contain,
+                                )
+                              : null,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-
-                            statusConnect == STATUS_CONNECT.CONNECTING ?
-                                Column(
-                                  children: [
-                                    SpinKitCircle(
-                                      color: Color(0xff64D2FF),
-                                      size: 30.0,
-                                    ),
-                                    Text("80%", style: TextStyle(
-                                        fontSize: 25,
-                                        color: Color(0xff64D2FF)
-                                    ),),
-                                  ],
-                                ) : Container(),
-
-
+                            statusConnect == STATUS_CONNECT.CONNECTING
+                                ? Column(
+                                    children: [
+                                      SpinKitCircle(
+                                        color: Color(0xff64D2FF),
+                                        size: 30.0,
+                                      ),
+                                      Text(
+                                        "80%",
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            color: Color(0xff64D2FF)),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
                             Container(
                               child: PickLocationWidget(),
                             ),
@@ -221,6 +264,9 @@ class _ConnectScreenState extends State<ConnectScreen> {
                                 onTap: () {
                                   changeStatus();
                                 }),
+                            SizedBox(
+                              height: 30,
+                            )
                           ],
                         )))
               ],
@@ -232,33 +278,26 @@ class _ConnectScreenState extends State<ConnectScreen> {
   }
 
   void changeStatus() {
-
     if (statusConnect == STATUS_CONNECT.NONE) {
       setState(() {
         statusConnect = STATUS_CONNECT.CONNECTING;
       });
-    } else
-
-    if (statusConnect ==
-        STATUS_CONNECT.CONNECTING) {
+    } else if (statusConnect == STATUS_CONNECT.CONNECTING) {
       setState(() {
         statusConnect = STATUS_CONNECT.CONNECTED;
       });
-    }
-    else
-
-    if (statusConnect ==
-        STATUS_CONNECT.CONNECTED) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    } else if (statusConnect == STATUS_CONNECT.CONNECTED) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }
   }
 
   Widget buildHandleButton({Function onTap, String text}) {
-
-    if(statusConnect == STATUS_CONNECT.CONNECTED) {
-      return    InkWell(
+    if (statusConnect == STATUS_CONNECT.CONNECTED) {
+      return InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomeScreen()));
         },
         child: Column(
           children: [
@@ -267,27 +306,33 @@ class _ConnectScreenState extends State<ConnectScreen> {
             ),
             Image.asset(
               'assets/images/png/hour_glass.png',
-              height: 35,
+              height: 30,
             ),
             SizedBox(
               height: 15,
             ),
-            Text('00:10:32', textAlign: TextAlign.center, style: TextStyle(
-                color: Color.fromRGBO(100, 210, 255, 1),
-                fontFamily: 'Antonio',
-                fontSize: 26,
-                letterSpacing: 1,
-                fontWeight: FontWeight.normal,
-                height: 1.2307692307692308
-            ),),
-            Text('Session', textAlign: TextAlign.center, style: TextStyle(
-                color: Color.fromRGBO(147, 167, 200, 1),
-                fontFamily: 'Poppins',
-                fontSize: 16,
-                letterSpacing: 0,
-                fontWeight: FontWeight.normal,
-                height: 1
-            ),)
+            Text(
+              '00:10:32',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color.fromRGBO(100, 210, 255, 1),
+                  fontFamily: 'Antonio',
+                  fontSize: 26,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.normal,
+                  height: 1.2307692307692308),
+            ),
+            Text(
+              'Session',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color.fromRGBO(147, 167, 200, 1),
+                  fontFamily: 'Poppins',
+                  fontSize: 16,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.normal,
+                  height: 1),
+            )
           ],
         ),
       );
@@ -318,8 +363,8 @@ class _ConnectScreenState extends State<ConnectScreen> {
           ),
           Image.asset(
             "assets/images/png/lightning.png",
-            height: 40,
-            width: 40,
+            height: 30,
+            width: 30,
             color: Color(0xff64D2FF),
           ),
         ],
@@ -358,7 +403,7 @@ class _ConnectScreenState extends State<ConnectScreen> {
             ),
           ],
         ),
-      Column(
+        Column(
           children: [
             Image.asset(
               'assets/images/png/session_second.png',

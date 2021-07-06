@@ -2,6 +2,7 @@ import 'package:fi_ui/components/navigator_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'detail_transaction/detail_body_transaction.dart';
 import 'detail_transaction/detail_transaction.dart';
 import 'widget/paint_chart.dart';
 
@@ -44,66 +45,65 @@ class TransactionScreenScreen extends StatelessWidget {
                       children: [
                         PaintChart(),
                         Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text("Receive"),
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor: Color(0xff50E3C2),
-                                              radius: 5,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "\$2,730",
-                                              style: TextStyle(fontSize: 22),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text("Send"),
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor: Color(0xffE3507A),
-                                              radius: 5,
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "\$1,460",
-                                              style: TextStyle(fontSize: 22),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12))),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text("Receive"),
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xff50E3C2),
+                                            radius: 5,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "\$2,730",
+                                            style: TextStyle(fontSize: 22),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text("Send"),
+                                      Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xffE3507A),
+                                            radius: 5,
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "\$1,460",
+                                            style: TextStyle(fontSize: 22),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-
+                        ),
                       ],
                     ),
                   ),
@@ -143,7 +143,8 @@ class TransactionScreenScreen extends StatelessWidget {
                             typeStatusTransaction:
                                 TYPE_STATUS_TRANSACTION.FAILED),
                         buildListItem(
-                            typeStatusTransaction: TYPE_STATUS_TRANSACTION.ERROR)
+                            typeStatusTransaction:
+                                TYPE_STATUS_TRANSACTION.ERROR)
                       ],
                     ),
                   ),
@@ -155,6 +156,66 @@ class TransactionScreenScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void showModalBottomCards() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: Get.context,
+        backgroundColor: Color(0xff10194E),
+        builder: (context) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Container(
+                        child: Text(
+                          "Refresh",
+                          style: TextStyle(color: Color(0xff0078F8)),
+                        ),
+                      )),
+                      Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(top: 5, bottom: 10),
+                            width: 30,
+                            height: 7,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
+                              color: Color.fromRGBO(78, 88, 159, 1),
+                            )),
+                      ),
+                      Expanded(
+                          child: Container(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Color(0xff0078F8)),
+                          ),
+                        ),
+                      )),
+                    ],
+                  ),
+                ),
+                DetailBodyTransaction(),
+                SizedBox(
+                  height: 100,
+                )
+              ],
+            ),
+          );
+        });
   }
 
   Widget buildListItem({TYPE_STATUS_TRANSACTION typeStatusTransaction}) {
@@ -216,9 +277,7 @@ class TransactionScreenScreen extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Get.to(DetailTransactionScreen(
-              typeStatusTransaction: typeStatusTransaction,
-            ));
+            showModalBottomCards();
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),

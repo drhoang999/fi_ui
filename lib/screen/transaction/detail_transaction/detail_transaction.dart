@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../transaction.dart';
+import 'detail_body_transaction.dart';
 
 class DetailTransactionScreen extends StatelessWidget {
 
@@ -90,145 +91,7 @@ class DetailTransactionScreen extends StatelessWidget {
               height: 150,
               child: headIcon,
             ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Status",
-                    style: TextStyle(
-                        color: Color(0xffB1AFCD), fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Completed",
-                    style: TextStyle(color: color),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Time",
-                    style: TextStyle(
-                        color: Color(0xffB1AFCD), fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Aug 12, 2021 at 4:35pm",
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "From",
-                      style: TextStyle(color: Color(0xffB1AFCD)),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Align(
-
-                          child: Text("Wallet ABC" , style: TextStyle(color: Color(0xffB1AFCD)),),
-                        alignment: Alignment.topRight,
-
-                      ),
-                      Text(
-                        "0xAAAAAAASSSSSSAAAAAAASSSSSSAAAAAAAAA",
-                        style: TextStyle(color: Color(0xffD8D8D8)),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "To",
-                      style: TextStyle(color: Color(0xffB1AFCD)),
-                    ),
-                  ),
-                  Text(
-                    "0xAAAAAAASSSSSSAAAAAAASSSSSSAAAAAAAAA",
-                    style: TextStyle(color: Color(0xffD8D8D8)),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Amount",
-                    style: TextStyle(
-                        color: Color(0xffB1AFCD), fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "180.234",
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Fee",
-                    style: TextStyle(
-                        color: Color(0xffB1AFCD), fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "0.12",
-                    style: TextStyle(color: Color(0xffD8D8D8)),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Total Amount",
-                    style: TextStyle(
-                        color: Color(0xffB1AFCD), fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    " 180.234",
-                    style: TextStyle(color: Color(0xffD8D8D8)),
-                  )
-                ],
-              ),
-            ),
+            DetailBodyTransaction(),
             Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

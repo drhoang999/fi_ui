@@ -98,37 +98,44 @@ class ExplorerScreen extends StatelessWidget {
   Widget buildTextField() {
     return Container(
       height: 65,
-        padding: const EdgeInsets.all(8.0),
-        child: Theme(
-          data: Theme.of(Get.context).copyWith(splashColor: Colors.transparent),
-          child: TextField(
-            textAlign: TextAlign.center,
-            autofocus: false,
-            style: TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color(0xff5E6268),
-              hintText: 'go',
-              suffixIcon:  Icon(Icons.search,color: Colors.white,),
-              contentPadding:
-              const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff5E6268),),
-                borderRadius: BorderRadius.circular(25.7),
+      padding: const EdgeInsets.all(8.0),
+      child: Theme(
+        data: Theme.of(Get.context).copyWith(splashColor: Colors.transparent),
+        child: TextField(
+          textAlign: TextAlign.center,
+          autofocus: false,
+          style: TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Color(0xff5E6268),
+            hintText: 'go',
+            suffixIcon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            contentPadding:
+                const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xff5E6268),
               ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff5E6268),),
-                borderRadius: BorderRadius.circular(25.7),
+              borderRadius: BorderRadius.circular(25.7),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xff5E6268),
               ),
+              borderRadius: BorderRadius.circular(25.7),
             ),
           ),
         ),
+      ),
     );
   }
 
   void showModalBottomCards() {
     showModalBottomSheet(
-      isScrollControlled: true,
+        isScrollControlled: true,
         context: Get.context,
         backgroundColor: Color(0xff10194E),
         builder: (context) {
@@ -138,7 +145,7 @@ class ExplorerScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                    margin: EdgeInsets.only(top: 5,bottom: 10),
+                    margin: EdgeInsets.only(top: 5, bottom: 10),
                     width: 64,
                     height: 7,
                     decoration: BoxDecoration(
@@ -234,7 +241,7 @@ class ExplorerScreen extends StatelessWidget {
                 Container(
                   height: 200,
                   child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => WalletCard()),
                 ),
                 Row(
@@ -270,9 +277,7 @@ class ExplorerScreen extends StatelessWidget {
                 Icons.keyboard_arrow_up_outlined,
                 color: Colors.white,
               ),
-              onPressed: () {
-
-              }),
+              onPressed: () {}),
           Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -283,14 +288,13 @@ class ExplorerScreen extends StatelessWidget {
                             margin: EdgeInsets.only(right: 10),
                             height: 35,
                             width: 35,
-
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-    image: DecorationImage(image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/120px-Google_%22G%22_Logo.svg.png")),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/120px-Google_%22G%22_Logo.svg.png")),
                                 border: Border.all(
-                                  color: Colors.lightBlue,
-                                    width: 3
-                                )),
+                                    color: Colors.lightBlue, width: 3)),
                           ),
                           Container(
                             margin: EdgeInsets.only(right: 10),
@@ -304,7 +308,6 @@ class ExplorerScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: Colors.lightBlue,
-
                             ),
                           ),
                         ],

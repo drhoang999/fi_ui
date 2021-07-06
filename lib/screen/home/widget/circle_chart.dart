@@ -14,8 +14,17 @@ class CircleChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return SfRadialGauge(axes: <RadialAxis>[
+    return SfRadialGauge(
+
+        axes: <RadialAxis>[
       RadialAxis(
+        ranges: [
+          GaugeRange(startValue: 0
+              ,endValue: 360,
+              color: Colors.grey.withOpacity(0.2),
+              startWidth: 8,
+              endWidth:8),
+        ],
           minimum: 0,
           maximum: 100,
           showLabels: false,
@@ -23,32 +32,34 @@ class CircleChart extends StatelessWidget {
           radiusFactor: 0.8,
           ticksPosition: ElementsPosition.outside,
           labelsPosition: ElementsPosition.outside,
-          startAngle: 270,
+          startAngle: -90,
           endAngle: 270,
           useRangeColorForAxis: true,
           axisLineStyle: AxisLineStyle(
               cornerStyle: CornerStyle.bothCurve,
-              color: Colors.black12,
+              color: Colors.transparent,
               thickness: 25),
           pointers: <GaugePointer>[
             RangePointer(
-                value: 360,
+                value: 50,
                 cornerStyle: CornerStyle.endCurve,
-                width: 7,
+                width: 8,
                 sizeUnit: GaugeSizeUnit.logicalPixel,
+                color: Colors.white,
                 gradient:
-                    SweepGradient(colors: colors, stops: <double>[0.25, 0.75])),
+                    SweepGradient(colors: colors,
+                        stops: <double>[0.25, 0.75])),
           ],
           annotations: <GaugeAnnotation>[
             GaugeAnnotation(
-                angle: 360,
+                angle: 180,
                 axisValue: 5,
                 positionFactor: 0.2,
                 widget: Text('\$' + value.ceil().toString(),
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: isCurrent ? Colors.white : Colors.grey)))
+                        color: isCurrent ? Colors.white : Colors.grey))),
           ])
     ]);
   }

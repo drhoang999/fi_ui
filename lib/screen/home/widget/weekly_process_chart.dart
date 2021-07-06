@@ -16,61 +16,71 @@ class WeeklyProcessChart extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: SfRadialGauge(axes: <RadialAxis>[
-            RadialAxis(
-                minimum: 0,
-                maximum: 100,
-                showLabels: false,
-                showTicks: false,
-                radiusFactor: 0.8,
-                ticksPosition: ElementsPosition.outside,
-                labelsPosition: ElementsPosition.outside,
-                startAngle: 150,
-                endAngle: 500,
-                useRangeColorForAxis: true,
-                axisLineStyle: AxisLineStyle(
-                    cornerStyle: CornerStyle.bothCurve,
-                    color: Colors.black12,
-                    thickness: 25),
-                pointers: <GaugePointer>[
-                  RangePointer(
-                      value: 45,
-                      cornerStyle: CornerStyle.bothCurve,
-                      width: 25,
-                      sizeUnit: GaugeSizeUnit.logicalPixel,
-                      color: Color(0xffFFC542)),
-                ],
-                annotations: <GaugeAnnotation>[
-                  GaugeAnnotation(
-                      angle: 360,
-                      axisValue: 5,
-                      positionFactor: 0.2,
-                      widget: Text('\$' + value.ceil().toString(),
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: isCurrent ? Colors.white : Colors.grey))),
+          child: Container(
+            height: 300,
+            width: 300,
+            child: Stack(
+              children: [
+                SfRadialGauge(axes: <RadialAxis>[
+                  RadialAxis(
+                      minimum: 0,
+                      maximum: 100,
+                      showLabels: false,
+                      showTicks: false,
+                      radiusFactor: 0.8,
+                      ticksPosition: ElementsPosition.outside,
+                      labelsPosition: ElementsPosition.outside,
+                      startAngle: 150,
+                      endAngle: 500,
+                      useRangeColorForAxis: true,
+                      axisLineStyle: AxisLineStyle(
+                          cornerStyle: CornerStyle.bothCurve,
+                          color: Colors.black12,
+                          thickness: 25),
+                      pointers: <GaugePointer>[
+                        RangePointer(
+                            value: 45,
+                            cornerStyle: CornerStyle.bothCurve,
+                            width: 25,
+                            sizeUnit: GaugeSizeUnit.logicalPixel,
+                            color: Color(0xffFFC542)),
+                      ],
+                      annotations: <GaugeAnnotation>[
+                        GaugeAnnotation(
+                            angle: 360,
+                            axisValue: 5,
+                            positionFactor: 0.2,
+                            widget: Text('\$' + value.ceil().toString(),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: isCurrent
+                                        ? Colors.white
+                                        : Colors.grey))),
+                      ]),
                 ]),
-            RadialAxis(
-                minimum: 0,
-                maximum: 100,
-                showLabels: false,
-                showTicks: false,
-                radiusFactor: 0.8,
-                ticksPosition: ElementsPosition.outside,
-                labelsPosition: ElementsPosition.outside,
-                startAngle: 200,
-                endAngle: 0,
-                useRangeColorForAxis: true,
-                axisLineStyle: AxisLineStyle(
-                    cornerStyle: CornerStyle.bothCurve,
-                    color: Color(0xffFF575F),
-                    thickness: 10),
-                pointers: <GaugePointer>[],
-                annotations: <GaugeAnnotation>[
-
+                SfRadialGauge(axes: <RadialAxis>[
+                  RadialAxis(
+                      minimum: 0,
+                      maximum: 80,
+                      showLabels: false,
+                      showTicks: false,
+                      radiusFactor: 0.71,
+                      ticksPosition: ElementsPosition.outside,
+                      labelsPosition: ElementsPosition.outside,
+                      startAngle: 200,
+                      endAngle: 0,
+                      useRangeColorForAxis: true,
+                      axisLineStyle: AxisLineStyle(
+                          cornerStyle: CornerStyle.bothCurve,
+                          color: Color(0xffFF575F),
+                          thickness: 10),
+                      pointers: <GaugePointer>[],
+                      annotations: <GaugeAnnotation>[]),
                 ]),
-          ]),
+              ],
+            ),
+          ),
         ),
         Expanded(
           child: Column(
